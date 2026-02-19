@@ -1,0 +1,16 @@
+Department of Computer Science and Engineering, SVNIT Surat
+System Software
+Lab Assignment - 6
+1. Write a program to construct recursive descent parsing for the following grammar
+
+Grammar:
+E --> TE'
+E' --> +TE' | @
+T --> FT'
+T' --> *FT' | @
+F --> id | (E)
+“@ Represent null Character”.
+A. Enter the string to be checked: “a/c+d”.
+B. Enter the string to be checked: “(a+b)*c”.
+
+

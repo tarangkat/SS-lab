@@ -1,0 +1,13 @@
+Department of Computer Science and Engineering
+SVNIT, Surat
+Lab Assignment – 4
+1. Write a C Program to find set of FIRST() and FOLLOW() for the following grammar
+Grammar:
+a. S -> aSbS | bSaS | ∈
+b. E -> TE’
+E’ -> +T E’|Є
+T -> F T’
+T’ -> *F T’ | Є
+F -> (E) | id
+
+

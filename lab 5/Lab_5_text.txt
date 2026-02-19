@@ -1,0 +1,16 @@
+Department of Computer Science and Engineering, SVNIT Surat
+System Software
+Lab Assignment - 5
+1. Write a program to construct LL(1) parse table for the following grammar and check
+
+whether the given input can be accepted or not.
+Grammar:
+E --> TE'
+E' --> +TE' | ε
+T --> FT'
+T' --> *FT' | ε
+F --> id | (E)
+
+*ε denotes epsilon.
+
+
