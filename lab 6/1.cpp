@@ -1,94 +1,102 @@
 #include <iostream>
+
 #include <string>
-#include <cctype>
-
 using namespace std;
-
-/*
-Grammar:
-E -> TE'
-E' -> +TE' | ε
-T -> FT'
-T' -> *FT' | ε
-F -> id | (E)
-*/
-
 string input;
 int pos = 0;
-bool error = false;
+bool E();
+bool Eprime();
 
-void E();
-void Eprime();
-void T();
-void Tprime();
-void F();
+bool T();
 
-void advance() {
-    pos++;
+bool Tprime();
+
+bool F();
+
+bool E() {
+
+   if (T()) {
+       return Eprime();
+   }
+   return false;
+
 }
 
-// E -> TE'
-void E() {
-    T();
-    Eprime();
-}
+bool Eprime() {
 
-// E' -> +TE' | ε
-void Eprime() {
-    if (input[pos] == '+') {
-        advance();
-        T();
-        Eprime();
-    }
-    // ε transition: do nothing
-}
+   if (input[pos] == '+') {
 
-// T -> FT'
-void T() {
-    F();
-    Tprime();
-}
+       pos++;
 
-// T' -> *FT' | ε
-void Tprime() {
-    if (input[pos] == '*') {
-        advance();
-        F();
-        Tprime();
-    }
-    // ε transition: do nothing
-}
+       if (T()) {
 
-// F -> id | (E)
-void F() {
-    if (isalnum(input[pos])) { // treats any alphanumeric char as 'id'
-        advance();
-    } else if (input[pos] == '(') {
-        advance();
-        E();
-        if (input[pos] == ')') {
-            advance();
-        } else {
-            error = true;
-        }
-    } else {
-        error = true;
-    }
+           return Eprime();
+
+       }
+
+       return false;
+
+   }
+  return true;
+
+}
+bool T() {
+
+   if (F()) {
+
+       return Tprime();
+
+   }
+
+   return false;
+
+}
+bool Tprime() {
+
+   if (input[pos] == '*') {
+       pos++;
+       if (F()) {
+           return Tprime();
+       }
+       return false;
+   }
+   return true;
+
+}
+bool F() {
+
+   if (isalnum(input[pos])) {
+       pos++;
+       return true;
+   }
+   else if (input[pos] == '(') {
+      pos++;
+       if (E()) {
+           if (input[pos] == ')') {
+
+               pos++;
+               return true;
+           }
+       }
+       return false;
+   }
+   return false;
 }
 
 int main() {
-    cout << "Recursive Descent Parsing\n";
-    cout << "Enter input string: ";
-    cin >> input;
 
-    // Call start symbol
-    E();
+   cout << "Enter the string to be checked: ";
+   cin >> input;
 
-    if (!error && pos == input.length()) {
-        cout << "\nString Accepted\n";
-    } else {
-        cout << "\nString Rejected\n";
-    }
-
-    return 0;
+   pos = 0;
+   if (E() && pos == input.length()) {
+       cout << "String is Accepted.\n";
+   } else {
+       cout << "String is Rejected.\n";
+   }
+   return 0;
 }
+
+
+
+
